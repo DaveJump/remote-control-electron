@@ -4,24 +4,32 @@
   "main": "index.js",
   "author": "DaveJump",
   "license": "MIT",
+  "description": "A remote control desktop app created by electron",
+  "private": true,
+  "workspaces": [
+    "ws-server"
+  ],
   "scripts": {
     "start": "concurrently \"yarn start:renderer\" \"wait-on http://localhost:3000 && yarn start:main\"",
     "start:main": "electron app/main/index.js",
     "start:renderer": "cd app/renderer/src && yarn start",
-    "rebuild": "electron-rebuild"
+    "start:server": "cd ./ws-server && yarn start",
+    "prepare": "yarn run rebuild",
+    "rebuild": "npm rebuild --runtime=electron --target=12.2.2 --disturl=https://atom.io/download/atom-shell --abi=93"
   },
-  "description": "A remote control desktop app created by electron",
+  "engines": {
+    "node": ">= 16"
+  },
   "dependencies": {
-    "electron": "~12",
+    "electron": "12.2.2",
     "electron-is-dev": "^2.0.0",
-    "project-common": "file:./app/common",
+    "project-common": "link:./app/common",
     "robotjs": "^0.6.0",
     "vkey": "^1.0.1",
     "ws": "^8.2.3"
   },
   "devDependencies": {
     "concurrently": "^6.3.0",
-    "electron-rebuild": "^3.2.3",
     "wait-on": "^6.0.0"
   }
 }

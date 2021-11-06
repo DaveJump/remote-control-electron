@@ -1,8 +1,6 @@
 const EventEmitter = require('events')
 const peer = new EventEmitter()
 const { ipcRenderer } = require('electron')
-// project-common 需要在根 package.json 里指定 file 协议的 dependency 并安装（直接执行 yarn | npm i）
-// 因为 create-react-app 用了 webpackScopePlugin 限制了模块只能在 src 目录内寻址
 const { initIceCandidate } = require('project-common/ice-candidate')
 
 const pc = new window.RTCPeerConnection({})

@@ -1,0 +1,16 @@
+{
+  "name": "ws-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "DaveJump",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "internal-ip": "^7.0.0",
+    "ws": "^8.2.3"
+  }
+}
