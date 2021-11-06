@@ -7,7 +7,8 @@
   "scripts": {
     "start": "concurrently \"yarn start:renderer\" \"wait-on http://localhost:3000 && yarn start:main\"",
     "start:main": "electron app/main/index.js",
-    "start:renderer": "cd app/renderer/src && yarn start"
+    "start:renderer": "cd app/renderer/src && yarn start",
+    "rebuild": "electron-rebuild"
   },
   "description": "A remote control desktop app created by electron",
   "dependencies": {
