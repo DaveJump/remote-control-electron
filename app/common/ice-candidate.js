@@ -12,6 +12,7 @@ function initIceCandidate(pc) {
           console.log('ice-candidate', e.candidate)
           ipcRenderer.send('forward', event, e.candidate.toJSON())
         }
+        // 这里要调 toJSON() 不知道为什么 ipcRenderer.send 不能直接发 candidate 实例，估计 candidate 实例里有函数，electron 克隆算法不支持函数克隆？ <electron@12>
       }
     },
     async addIceCandidate(candidate) {
