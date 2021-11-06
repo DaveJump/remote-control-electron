@@ -1,0 +1,26 @@
+{
+  "name": "remote-control-electron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "DaveJump",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"yarn start:renderer\" \"wait-on http://localhost:3000 && yarn start:main\"",
+    "start:main": "electron app/main/index.js",
+    "start:renderer": "cd app/renderer/src && yarn start"
+  },
+  "description": "A remote control desktop app created by electron",
+  "dependencies": {
+    "electron": "~12",
+    "electron-is-dev": "^2.0.0",
+    "project-common": "file:./app/common",
+    "robotjs": "^0.6.0",
+    "vkey": "^1.0.1",
+    "ws": "^8.2.3"
+  },
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "electron-rebuild": "^3.2.3",
+    "wait-on": "^6.0.0"
+  }
+}
