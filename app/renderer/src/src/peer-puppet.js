@@ -64,10 +64,7 @@ pc.addEventListener('datachannel', ev => {
           height: window.screen.height
         }
       }
-      console.log('channel-message-puppet: ', type, data)
-      setTimeout(() => {
-        ipcRenderer.send('robot', type, data)
-      }, 2000)
+      ipcRenderer.send('robot', type, data)
     }
   }
 })
