@@ -9,7 +9,7 @@ const code2ws = new Map()
 
 wss.on('listening', async () => {
   const ip = await internalIpV4()
-  console.log(`ws server listening on:\n   local: ws://127.0.0.1:${PORT}\n   internal-network: ws://${ip}:8010`)
+  console.log(`ws server listening on:\n   local: ws://127.0.0.1:${PORT}\n   internal-network: ws://${ip}:${PORT}`)
 })
 
 wss.on('connection', (ws, req) => {
