@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "DaveJump",
+  "productName": "Hugging",
   "license": "MIT",
   "description": "A remote control desktop app created by electron",
   "private": true,
@@ -15,12 +16,15 @@
     "start:renderer": "cd app/renderer/src && yarn start",
     "start:server": "cd ./ws-server && yarn start",
     "prepare": "yarn run rebuild",
-    "rebuild": "npm rebuild --runtime=electron --target=12.2.2 --disturl=https://atom.io/download/atom-shell --abi=93"
+    "rebuild": "npm rebuild --runtime=electron --target=12.2.2 --disturl=https://atom.io/download/atom-shell --abi=93",
+    "format": "prettier --write **/*.js **/*.jsx **/*.css"
   },
   "engines": {
     "node": ">=16 <17"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
+    "about-window": "^1.15.0",
     "electron": "12.2.2",
     "electron-is-dev": "^2.0.0",
     "project-common": "link:./app/common",
@@ -30,6 +34,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.3.0",
+    "prettier": "^2.4.1",
     "wait-on": "^6.0.0"
   }
 }

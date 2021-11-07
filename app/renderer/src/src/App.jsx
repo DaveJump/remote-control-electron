@@ -1,4 +1,5 @@
 import { ipcRenderer } from 'electron'
+import { Menu, MenuItem } from '@electron/remote'
 import { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import './peer-puppet'
@@ -37,14 +38,26 @@ function App() {
     setLocalCode(code)
   }
 
+  const handleContextMenu = (e) => {
+    // e.preventDefault()
+    const contextMenu = new Menu()
+    contextMenu.append(new MenuItem({
+      label: 'Copy',
+      role: 'copy'
+    }))
+    contextMenu.popup()
+  }
+
   return (
     <div className="control-main">
       {
         !controlText.length ? (
           <>
-            <div className="local-code">Your local control code is: {localCode}</div>
-            <input type="text" value={controlCode} onInput={(e) => setControlCode(e.target.value)} />
-            <button onClick={startControl}>确认</button>
+            <div className="local-code">Local control code: <span onContextMenu={handleContextMenu}>{localCode}</span></div>
+            <div className="operator">
+              <input placeholder="Enter remote control code" type="text" value={controlCode} onInput={(e) => setControlCode(e.target.value)} />
+              <button onClick={startControl}>Confirm</button>
+            </div>
           </>
         ) : (<div className="control-text">{controlText}</div>)
       }

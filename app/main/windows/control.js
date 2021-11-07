@@ -1,6 +1,6 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
-const { sendWindow } = require('./send')
+const { sendWindow } = require('./common')
 
 let win = null
 
@@ -14,13 +14,11 @@ function createControlWindow() {
     }
   })
 
-  win.on('closed', () => {
+  win.on('close', () => {
     win = null
   })
 
   win.loadFile(path.resolve(__dirname, '../../renderer/pages/control/index.html'))
-
-  return win
 }
 
 function sendControlWindow(channel, ...args) {

@@ -1,24 +1,46 @@
-const { app, BrowserWindow } = require('electron')
-const { createMainWindow } = require('./windows/main')
+const { app } = require('electron')
+const {
+  createMainWindow,
+  closeMainWindow,
+  showMainWindow
+} = require('./windows/main')
 const handleControl = require('./control')
 const robot = require('./robot')
+const isSingleInstance = app.requestSingleInstanceLock()
+const { productName } = require('../config/manifest')
+const { configTray, configMenu } = require('./tray-menu')
 
-app.whenReady().then(() => {
-  app.allowRendererProcessReuse = false
+if (!isSingleInstance) { // 阻止多开
+  app.quit()
+} else {
+  app.setName(productName)
+  // 设置 name 和 menu 需在 app.whenReady 之前，否则会被默认 menu 覆盖
+  // configMenu()
 
-  let mainWindow = createMainWindow()
-
-  handleControl()
-
-  robot()
-
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      mainWindow = createMainWindow()
-    }
+  app.on('second-instance', () => {
+    showMainWindow()
   })
-})
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})
+  let tray = null // tray 需在入口模块全局引用避免被 GC 导致托盘图标消失
+  app.whenReady().then(() => {
+    require('@electron/remote/main').initialize()
+
+    app.allowRendererProcessReuse = false // 高版本 electron (< 14)设置关闭后才能使用原生 node 模块
+
+    tray = configTray()
+
+    createMainWindow()
+
+    handleControl()
+
+    robot()
+  })
+
+  app.on('before-quit', () => {
+    closeMainWindow()
+  })
+
+  app.on('activate', () => {
+    showMainWindow()
+  })
+}
