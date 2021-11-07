@@ -1,6 +1,7 @@
 const { BrowserWindow } = require('electron')
 const path = require('path')
 const { sendWindow } = require('./common')
+const { registerDevToolsShortcut } = require('../shortcut/global')
 
 let win = null
 
@@ -13,6 +14,8 @@ function createControlWindow() {
       contextIsolation: false
     }
   })
+
+  registerDevToolsShortcut(win)
 
   win.on('close', () => {
     win = null

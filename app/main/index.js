@@ -15,7 +15,7 @@ if (!isSingleInstance) { // 阻止多开
 } else {
   app.setName(productName)
   // 设置 name 和 menu 需在 app.whenReady 之前，否则会被默认 menu 覆盖
-  // configMenu()
+  configMenu()
 
   app.on('second-instance', () => {
     showMainWindow()

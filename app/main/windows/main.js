@@ -2,6 +2,7 @@ const { BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
 const { sendWindow } = require('./common')
+const { registerDevToolsShortcut } = require('../shortcut/global')
 
 let win = null
 
@@ -18,6 +19,8 @@ function createMainWindow() {
       contextIsolation: false
     }
   })
+
+  registerDevToolsShortcut(win)
 
   require('@electron/remote/main').enable(win.webContents)
 
