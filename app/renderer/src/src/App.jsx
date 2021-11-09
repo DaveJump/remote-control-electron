@@ -14,7 +14,10 @@ function App() {
     ipcRenderer.on('control-state-change', handleControlStateChange)
 
     return () => {
-      ipcRenderer.removeListener('control-state-change', handleControlStateChange)
+      ipcRenderer.removeListener(
+        'control-state-change',
+        handleControlStateChange
+      )
     }
     // eslint-disable-next-line
   }, [])
@@ -38,29 +41,39 @@ function App() {
     setLocalCode(code)
   }
 
-  const handleContextMenu = (e) => {
+  const handleContextMenu = e => {
     // e.preventDefault()
     const contextMenu = new Menu()
-    contextMenu.append(new MenuItem({
-      label: 'Copy',
-      role: 'copy'
-    }))
+    contextMenu.append(
+      new MenuItem({
+        label: 'Copy',
+        role: 'copy'
+      })
+    )
     contextMenu.popup()
   }
 
   return (
     <div className="control-main">
-      {
-        !controlText.length ? (
-          <>
-            <div className="local-code">Local control code: <span onContextMenu={handleContextMenu}>{localCode}</span></div>
-            <div className="operator">
-              <input placeholder="Enter remote control code" type="text" value={controlCode} onInput={(e) => setControlCode(e.target.value)} />
-              <button onClick={startControl}>Confirm</button>
-            </div>
-          </>
-        ) : (<div className="control-text">{controlText}</div>)
-      }
+      {!controlText.length ? (
+        <>
+          <div className="local-code">
+            Local control code:{' '}
+            <span onContextMenu={handleContextMenu}>{localCode}</span>
+          </div>
+          <div className="operator">
+            <input
+              placeholder="Enter remote control code"
+              type="text"
+              value={controlCode}
+              onInput={e => setControlCode(e.target.value)}
+            />
+            <button onClick={startControl}>Confirm</button>
+          </div>
+        </>
+      ) : (
+        <div className="control-text">{controlText}</div>
+      )}
     </div>
   )
 }

@@ -9,7 +9,9 @@ const code2ws = new Map()
 
 wss.on('listening', async () => {
   const ip = await internalIpV4()
-  console.log(`ws server listening on:\n   local: ws://127.0.0.1:${PORT}\n   internal-network: ws://${ip}:${PORT}`)
+  console.log(
+    `ws server listening on:\n   local: ws://127.0.0.1:${PORT}\n   internal-network: ws://${ip}:${PORT}`
+  )
 })
 
 wss.on('connection', (ws, req) => {
@@ -25,7 +27,7 @@ wss.on('connection', (ws, req) => {
     ws.sendData('error', { msg })
   }
 
-  ws.on('message', (message) => {
+  ws.on('message', message => {
     let parsedMessage = {}
     try {
       parsedMessage = JSON.parse(message)
