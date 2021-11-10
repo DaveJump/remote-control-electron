@@ -4,8 +4,6 @@ const {
   closeMainWindow,
   showMainWindow
 } = require('./windows/main')
-const handleControl = require('./control')
-const robot = require('./robot')
 const isSingleInstance = app.requestSingleInstanceLock()
 const { productName } = require('../config/manifest')
 const { configTray, configMenu } = require('./tray-menu')
@@ -31,9 +29,10 @@ if (!isSingleInstance) { // 阻止多开
 
     createMainWindow()
 
-    handleControl()
+    require('./control')()
 
-    robot()
+    // robot()
+    require('./robot')()
   })
 
   app.on('before-quit', () => {
