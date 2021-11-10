@@ -59,16 +59,17 @@ function App() {
         <>
           <div className="local-code">
             Local control code:{' '}
-            <span onContextMenu={handleContextMenu}>{localCode}</span>
+            <span id="local-ctrl-code" onContextMenu={handleContextMenu}>{localCode}</span>
           </div>
           <div className="operator">
             <input
               placeholder="Enter remote control code"
               type="text"
+              id="ctrl-code-input"
               value={controlCode}
               onInput={e => setControlCode(e.target.value)}
             />
-            <button onClick={startControl}>Confirm</button>
+            <button id="confirm-btn" onClick={startControl}>Confirm</button>
           </div>
         </>
       ) : (

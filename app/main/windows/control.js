@@ -11,7 +11,8 @@ function createControlWindow() {
     height: 720,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   })
 
